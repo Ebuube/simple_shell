@@ -4,6 +4,7 @@ This program emulates a Unix shell and allows users to run linux commands direct
 
 ## Compilation
 To compile this program using the gcc compiler, run this command
+
 `gcc -Wall -pedantic -Werror -Wextra -std=gnu89 *.c -o hsh`
 
 (assumption: the user is inside this repo)
