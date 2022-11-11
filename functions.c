@@ -1,8 +1,5 @@
 #include "main.h"
 
-#include <string.h>	/* test */
-
-
 /**
  * hsh_loop - loops through to emulate a UNIX Commandline Interpreter
  * @argc: argument count
