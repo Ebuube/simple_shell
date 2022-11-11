@@ -44,7 +44,7 @@ void hsh_loop(UNUSED int argc, UNUSED char *argv[], UNUSED char *const envp[])
  * hsh_execute - executes the passed function
  * @argc: argument count
  * @command: the command to execute
- * @args: arguments to the to command
+ * @args: arguments to the command
  * @envp: points to an array of environmental variables
  *
  * Return: 0 on succcess
