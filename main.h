@@ -10,7 +10,7 @@
 #include <errno.h>
 
 #define BUFSIZE 81
-#define ERR_PROMPT "hsh"
+#define ERR_PROMPT "./shell"
 #define SHELL_PROMPT "#cisfun$ "
 #define UNUSED __attribute__((unused))
 
