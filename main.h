@@ -10,6 +10,8 @@
 #include <errno.h>
 
 #define BUFSIZE 81
+#define ERR_PROMPT "hsh"
+#define SHELL_PROMPT "#cisfun$ "
 #define UNUSED __attribute__((unused))
 
 void hsh_loop(UNUSED int argc, UNUSED char *argv[], UNUSED char *const envp[]);

@@ -21,7 +21,7 @@ void hsh_loop(UNUSED int argc, UNUSED char *argv[], UNUSED char *const envp[])
 		if (getpid() > 0 && interactive)
 		{
 			/* for parent process only */
-			printf("($) ");
+			printf(SHELL_PROMPT);
 		}
 
 		line = hsh_readline();
@@ -59,7 +59,7 @@ pid_t hsh_execute(UNUSED int argc, UNUSED const char *command,
 	if (f_pid == -1)
 	{
 		/* error forking this process */
-		perror("hsh");
+		perror(ERR_PROMPT);
 		exit(EXIT_FAILURE);
 	}
 	if (f_pid == 0)
@@ -67,7 +67,7 @@ pid_t hsh_execute(UNUSED int argc, UNUSED const char *command,
 		/* child process */
 		status = execve(command, args, envp);
 		if (status < 0)
-			perror("hsh");	/* error executing the command */
+			perror(ERR_PROMPT);	/* error executing the command */
 		exit(EXIT_FAILURE);
 	}
 	if (f_pid > 0)
@@ -93,7 +93,7 @@ char *hsh_readline(void)
 	buffer = malloc(memlen * sizeof(char));
 	if (!buffer)
 	{
-		perror("hsh");
+		perror(ERR_PROMPT);
 		exit(EXIT_FAILURE);
 	}
 	while (1)
@@ -115,7 +115,7 @@ else
 			buffer = realloc(buffer, memlen * sizeof(char));
 			if (!buffer)
 			{
-				perror("hsh");
+				perror(ERR_PROMPT);
 				exit(EXIT_FAILURE);
 			}
 		}
