@@ -11,7 +11,7 @@ To compile this program using the gcc compiler, run this command
 
 ## Usage
 ### Interactive
-The interactive mode allows users to infinitely run Unix commands until a termination signal is sent to the program: `CTRL + S`. To use it interacitively, start the program thus:
+The interactive mode allows users to infinitely run Unix commands until a termination signal is sent to the program: `CTRL + C`. To use it interacitively, start the program thus:
 
 `./hsh`
 
