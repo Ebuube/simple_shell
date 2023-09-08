@@ -17,7 +17,7 @@
 #define UNUSED __attribute__((unused))
 
 /* FUNCTIONS */
-char *sh_readline(char *eof);
+char *sh_readline(void);
 void sh_loop(void);
 pid_t sh_execute(char *cmd);
 void sig_handler(int signo);

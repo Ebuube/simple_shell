@@ -7,42 +7,45 @@
  */
 void sh_loop(void)
 {
-	char *line = 0;
+	char *line = NULL;
 	int interactive = 0;
-	pid_t status = 0;
-	char end_of_file = 0;
+	UNUSED pid_t status = 0;
 
 	interactive = isatty(STDIN_FILENO);
 	while (1)
 	{
+		line = NULL;
 		if (interactive)
 		{
 			printf(SHELL_PROMPT);
 		}
 
-		end_of_file = EOF + 1;
-		line = sh_readline(&end_of_file);
+		line = sh_readline();
 
-		if (line && line[0] != '\0')
-			status = sh_execute(line);
-
-		/* test */
-		if ((!interactive && line[0] == '\0' && end_of_file == EOF)
-			|| (status < 0)
-			|| (line[0] == EOF))
-		{/* Once end of file is reached */
-
-			/* Clean up */
+		if (line == NULL)
+		{/* Error - or end of file */
 			if (line)
 				free(line);
 
+			if (interactive)
+				putchar('\n');
 			break;
 		}
+		printf("line: '%s'\n", line);	/* test */
+
+		if (line && strlen(line) > 0)
+			status = sh_execute(line);
 
 		/* Clean up */
 		if (line)
 			free(line);
 		fflush(STDIN_FILENO);
 		errno = 0;
+
+		/* exit *
+		if (!interactive && status == -1)
+		{
+			exit(EXIT_FAILURE);
+		} */
 	}
 }

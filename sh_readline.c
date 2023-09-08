@@ -5,60 +5,30 @@
  *
  * Return: a pointer to the string of input or NULL on error
  */
-char *sh_readline(char *eof)
+char *sh_readline(void)
 {
-	char *buffer = NULL;
-	size_t mem_size = BUFSIZE, pos = 0;
-	int c = 0;
+	char *line = NULL;
+	ssize_t nread = 0;
+	size_t size = 0;
 
-	buffer = malloc(mem_size * sizeof(char));
-	if (!buffer)
+	nread = getline(&line, &size, stdin);
+	if (nread == -1)
 	{
+		if (line)
+			free(line);
 		return (NULL);
 	}
 
-	while (1)
+	if ((size_t)nread < size - 1)
 	{
-		c = getchar();
-
-		/* Handling end of file */
-		(*eof) = (c == EOF) ? EOF : (*eof);
-		if (c == EOF || c == '\n')
+		size = (line[nread - 1] == '\n') ? nread : nread + 1;
+		line = realloc(line, size);
+		if (line == NULL)
 		{
-			buffer[pos] = '\0';
-			break;
+			exit(EXIT_FAILURE);
 		}
-		else
-			buffer[pos] = c;
-
-		pos++;
-		if (pos == mem_size && buffer[pos] != '\0')
-		{/* Input longer than available memory */
-			mem_size += BUFSIZE;
-			buffer = realloc(buffer, mem_size * sizeof(char));
-			if (!buffer)
-			{
-				return (NULL);
-			}
-		}
-	}
-	if (pos < mem_size - 1)
-	{
-		printf("\n-----------------------START OF FILE---------------------\n");	/* test */
-		printf("str: -> '%s'\n", buffer);	/* test */
-		printf("pos(%lu)\tmem_size(%lu)\n", pos, mem_size);	/* test */
-		buffer = realloc(buffer, pos + 1);
-		if (!buffer)
-		{
-			return (NULL);
-		}
-		mem_size = pos + 1;
-		printf("pos(%lu)\t", pos);	/* test */
-		printf("strlen(buffer) -> %lu\t", strlen(buffer));	/* test */
-
-		printf("\n------------------------END OF FILE---------------------\n");	/* test */
-		printf("Successfully freed memory\n");	/* test */
+		line[size - 1] = '\0';
 	}
 
-	return (buffer);
+	return (line);
 }
