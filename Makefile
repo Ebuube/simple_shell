@@ -27,7 +27,7 @@ VIM_TMP = $(wildcard *.swp)
 EMACS_TMP = $(wildcard *~)
 
 # Dependencies
-DEPS := "$(wildcard main.h)"
+DEPS := "$(wildcard shell.h)"
 
 
 # Rules
