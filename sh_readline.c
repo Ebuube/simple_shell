@@ -39,6 +39,13 @@ char *sh_readline(void)
 			}
 		}
 	}
+	if (pos < mem_size)
+	{
+		printf("pos(%lu)\tmem_size(%lu)\n", pos, mem_size);	/* test */
+		buffer[mem_size - 1] = '\0';
+		free(buffer + pos + 1);
+		printf("Successfully freed memory\n");	/* test */
+	}
 
 	return (buffer);
 }

@@ -20,6 +20,9 @@ NAME = hsh
 # Flags for C compiler
 CFLAGS := -Wall -Werror -Wextra -pedantic -std=gnu89
 
+# Flags to enable debugging
+DBG_CFLAGS := -Wall -Werror -Wextra -pedantic -ggdb3 -std=gnu89
+
 # Vim temporary files
 VIM_TMP = $(wildcard *.swp)
 
@@ -35,10 +38,10 @@ DEPS := "$(wildcard shell.h)"
 ifneq ($(strip $(DEPS)), "") # ensure dependencies are present
 
 all: $(SRC) # recompile only the updated source files
-	$(CC) $? -o $(NAME)
+	$(CC) $(CFLAGS) $? -o $(NAME)
 
 
-.PHONY: clean fclean oclean re
+.PHONY: clean fclean oclean re compiledbg
 
 clean: # delete all emacs and vim temporary files along with the executable
 	$(RM) $(EMACS_TMP) $(VIM_TMP) $(NAME)
@@ -50,5 +53,8 @@ fclean: clean oclean # delete all emacs and vim temporary files, the executable 
 	and the object files
 
 re: fclean all # force recompilation of all source files
+
+compiledbg: $(SRC)
+	$(CC) $(DBG_CFLAGS) $? -o $(NAME)
 
 endif

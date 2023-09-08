@@ -7,7 +7,7 @@
  *
  * Return: 0 on success
  */
-int main(int argc, char *argv[])
+int main(UNUSED int argc, char *argv[])
 {
 	/* START OF PROGRAM */
 	ERR_PROMPT = argv[0];
