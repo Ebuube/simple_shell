@@ -28,7 +28,8 @@ void sh_loop(void)
 
 		/* test */
 		if ((!interactive && line[0] == '\0' && end_of_file == EOF)
-			|| (status < 0))
+			|| (status < 0)
+			|| (line[0] == EOF))
 		{/* Once end of file is reached */
 
 			/* Clean up */

@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -19,6 +20,7 @@
 char *sh_readline(char *eof);
 void sh_loop(void);
 pid_t sh_execute(char *cmd);
+void sig_handler(int signo);
 
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;
