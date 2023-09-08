@@ -5,7 +5,7 @@
  *
  * Return: a pointer to the string of input or NULL on error
  */
-char *sh_readline(void)
+char *sh_readline(char *eof)
 {
 	char *buffer = NULL;
 	size_t mem_size = BUFSIZE, pos = 0;
@@ -20,6 +20,9 @@ char *sh_readline(void)
 	while (1)
 	{
 		c = getchar();
+
+		/* Handling end of file */
+		(*eof) = (c == EOF) ? EOF : (*eof);
 		if (c == EOF || c == '\n')
 		{
 			buffer[pos] = '\0';
@@ -39,11 +42,21 @@ char *sh_readline(void)
 			}
 		}
 	}
-	if (pos < mem_size)
+	if (pos < mem_size - 1)
 	{
+		printf("\n-----------------------START OF FILE---------------------\n");	/* test */
+		printf("str: -> '%s'\n", buffer);	/* test */
 		printf("pos(%lu)\tmem_size(%lu)\n", pos, mem_size);	/* test */
-		buffer[mem_size - 1] = '\0';
-		free(buffer + pos + 1);
+		buffer = realloc(buffer, pos + 1);
+		if (!buffer)
+		{
+			return (NULL);
+		}
+		mem_size = pos + 1;
+		printf("pos(%lu)\t", pos);	/* test */
+		printf("strlen(buffer) -> %lu\t", strlen(buffer));	/* test */
+
+		printf("\n------------------------END OF FILE---------------------\n");	/* test */
 		printf("Successfully freed memory\n");	/* test */
 	}
 

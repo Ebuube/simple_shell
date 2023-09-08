@@ -8,8 +8,11 @@
 void sh_loop(void)
 {
 	char *line = 0;
-	int interactive = isatty(STDIN_FILENO);
+	int interactive = 0;
+	pid_t status = 0;
+	char end_of_file = 0;
 
+	interactive = isatty(STDIN_FILENO);
 	while (1)
 	{
 		if (interactive)
@@ -17,22 +20,26 @@ void sh_loop(void)
 			printf(SHELL_PROMPT);
 		}
 
-		line = sh_readline();
+		end_of_file = EOF + 1;
+		line = sh_readline(&end_of_file);
+
+		if (line && line[0] != '\0')
+			status = sh_execute(line);
 
 		/* test */
-		if (!interactive && line[0] == '\0')
+		if ((!interactive && line[0] == '\0' && end_of_file == EOF)
+			|| (status < 0))
 		{/* Once end of file is reached */
-			break;
 
 			/* Clean up */
-			free(line);
+			if (line)
+				free(line);
+
+			break;
 		}
 
-		if (line)
-			sh_execute(line);
-
 		/* Clean up */
-		if (!line)
+		if (line)
 			free(line);
 		fflush(STDIN_FILENO);
 		errno = 0;

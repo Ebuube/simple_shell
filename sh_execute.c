@@ -4,7 +4,7 @@
  * sh_execute - execute the passed program
  * @cmd: the command to execute
  *
- * Return: 0 on success
+ * Return: 0 on success, else -1 on failure.
  */
 pid_t sh_execute(char *cmd)
 {
@@ -29,7 +29,7 @@ pid_t sh_execute(char *cmd)
 		if (status < 0)
 		{/* Error executing command */
 			perror(ERR_PROMPT);
-			exit(EXIT_FAILURE);
+			return (-1);
 		}
 	}
 

@@ -4,6 +4,7 @@
 /* HEADERS */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -15,7 +16,7 @@
 #define UNUSED __attribute__((unused))
 
 /* FUNCTIONS */
-char *sh_readline(void);
+char *sh_readline(char *eof);
 void sh_loop(void);
 pid_t sh_execute(char *cmd);
 
