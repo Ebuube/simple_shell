@@ -6,8 +6,11 @@
  *
  * Return: nothing
  */
-void sig_handler(int signo)
+void sig_handler(UNUSED int signo)
 {
+#ifdef TEST_CODE
 	printf("SIG NUMBER -> %d\nTerminating\n", signo);
-	exit(EXIT_FAILURE);
+#endif
+	putchar('\n');
+	exit(EXIT_SUCCESS);
 }
