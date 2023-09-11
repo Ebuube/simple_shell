@@ -8,7 +8,6 @@
 void sh_loop(void)
 {
 	char *line = NULL;
-	int interactive = 0;
 
 	interactive = isatty(STDIN_FILENO);
 	while (1)

@@ -26,12 +26,10 @@ char *trim(char **str)
 	for (end = strlen(string) - 1; end > 0 && string[end] == DELIM; end--)
 		;
 
-	size = end - start + 1;
-	
-	if (end > size)
-		size = end - start + 1;
-	else    /* no good point found */
+	if (end == 0)	/* no good point found */
 		size = 0;
+	else
+		size = end - start + 1;
 	if (size == 0)
 	{
 		free(*str);

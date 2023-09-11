@@ -27,7 +27,11 @@ char *trim(char **str);
 
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;
+char *ERR_PROMPT;
+
 extern char **environ;
 
-char *ERR_PROMPT;
+/* REMOVE WHEN STRUCTURES FOR SHELL_STATUS HAVE BEEN CREATED */
+extern int interactive;
+int interactive;
 #endif	/* __SHELL_H__ */
