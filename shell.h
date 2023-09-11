@@ -22,6 +22,9 @@ void sh_loop(void);
 pid_t sh_execute(char *cmd);
 void sig_handler(int signo);
 
+/* STRING HANDLERS */
+char *trim(char **str);
+
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;
 extern char **environ;

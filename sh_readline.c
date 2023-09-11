@@ -30,5 +30,11 @@ char *sh_readline(void)
 		line[size - 1] = '\0';
 	}
 
+	line = trim(&line);
+	if (line == NULL)
+	{
+		return (NULL);
+	}
+
 	return (line);
 }
