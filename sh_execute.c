@@ -28,8 +28,6 @@ pid_t sh_execute(char *cmd)
 		status = execve(args[0], args, environ);
 		if (status < 0)
 		{/* Error executing command */
-			printf("sh_execute(pid: %d, ppid: %d): status = %d\n",
-				getpid(), getppid(), status);	/* test */
 			perror(ERR_PROMPT);
 			exit(EXIT_FAILURE);
 		}

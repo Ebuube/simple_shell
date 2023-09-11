@@ -27,6 +27,11 @@ char *trim(char **str)
 		;
 
 	size = end - start + 1;
+	
+	if (end > size)
+		size = end - start + 1;
+	else    /* no good point found */
+		size = 0;
 	if (size == 0)
 	{
 		free(*str);

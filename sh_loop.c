@@ -9,7 +9,6 @@ void sh_loop(void)
 {
 	char *line = NULL;
 	int interactive = 0;
-	pid_t status = 0;	/* test */
 
 	interactive = isatty(STDIN_FILENO);
 	while (1)
@@ -21,22 +20,28 @@ void sh_loop(void)
 		}
 
 		line = sh_readline();
+		if (line)
+			printf("sh_loop: line ->  '%s'\n", line);	/* test */
+		else
+			printf("sh_loop: line -> %p\n", (void *)line);	/* test */
 
+#ifdef JUST_DEY_PLAY
 		if (line == NULL)
 		{/* Error - or end of file */
 			if (line)
 				free(line);
 
 			if (interactive)
+			{
 				putchar('\n');
-			break;
+				break;
+			}
 		}
+#endif
 
 		if (line && strlen(line) > 0)
-			status = sh_execute(line);
+			sh_execute(line);
 
-		printf("sh_loop(pid: %d, ppid: %d)): status -> %d\n",
-			getpid(), getppid(), status);	/* test */
 		/* Clean up */
 		if (line)
 			free(line);

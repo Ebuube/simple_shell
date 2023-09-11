@@ -13,10 +13,11 @@ char *sh_readline(void)
 
 	nread = getline(&line, &size, stdin);
 	if (nread == -1)
-	{
+	{/* END OF FILE */
 		if (line)
 			free(line);
-		return (NULL);
+		putchar('\n');
+		exit(EXIT_SUCCESS);
 	}
 
 	if ((size_t)nread < size - 1)
