@@ -20,7 +20,7 @@ void sh_loop(void)
 
 		line = sh_readline();
 
-		if (line && strlen(line) > 0)
+		if (line != NULL)
 			sh_execute(line);
 
 		/* Clean up */

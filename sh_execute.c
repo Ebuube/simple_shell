@@ -29,6 +29,10 @@ pid_t sh_execute(char *cmd)
 		if (status < 0)
 		{/* Error executing command */
 			perror(ERR_PROMPT);
+
+			/* clean up */
+			if (cmd)
+				free(cmd);
 			exit(EXIT_FAILURE);
 		}
 	}
