@@ -30,7 +30,6 @@ char *sh_readline(void)
 		line[size - 1] = '\0';
 	}
 
-	printf("sh_readline: line -> '%s'\n", line);	/* test */
 	trim(&line);
 	if (line == NULL)
 	{

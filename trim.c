@@ -21,23 +21,12 @@ char *trim(char **str)
 	}
 	string = *str;
 
-	printf("trim: str -> '%s'\n", string);	/* test */
-
-	/* left trim */
 	for (start = 0; string[start] && string[start] == DELIM; start++)
 		;
-
-	printf("start = %u\n", start);	/* test */
-
 	for (end = strlen(string) - 1; end > 0 && string[end] == DELIM; end--)
 		;
 
-	printf("end = %u\n", end);	/* test */
-
 	size = end - start + 1;
-	
-	printf("size = %u\n", size);	/* test */
-
 	if (size == 0)
 	{
 		free(*str);
@@ -50,11 +39,8 @@ char *trim(char **str)
 	{
 		return (NULL);
 	}
-
 	new = strncpy(new, string + start, size);
 	new[size] = '\0';
-
-	printf("new -> '%s'\n", new);	/* test */
 
 	free(string);
 	string = new;
