@@ -26,10 +26,7 @@ char *trim(char **str)
 	for (end = strlen(string) - 1; end > 0 && string[end] == DELIM; end--)
 		;
 
-	if (end == 0)	/* no good point found */
-		size = 0;
-	else
-		size = end - start + 1;
+	size = (end == 0) ? 0 : end - start + 1;
 	if (size == 0)
 	{
 		free(*str);

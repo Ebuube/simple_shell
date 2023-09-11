@@ -19,24 +19,6 @@ void sh_loop(void)
 		}
 
 		line = sh_readline();
-		if (line)
-			printf("sh_loop: line ->  '%s'\n", line);	/* test */
-		else
-			printf("sh_loop: line -> %p\n", (void *)line);	/* test */
-
-#ifdef JUST_DEY_PLAY
-		if (line == NULL)
-		{/* Error - or end of file */
-			if (line)
-				free(line);
-
-			if (interactive)
-			{
-				putchar('\n');
-				break;
-			}
-		}
-#endif
 
 		if (line && strlen(line) > 0)
 			sh_execute(line);
