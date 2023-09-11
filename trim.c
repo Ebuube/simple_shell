@@ -15,7 +15,7 @@ char *trim(char **str)
 	const char DELIM = ' ';
 	unsigned int size = 0, start = 0, end = 0;
 
-	if (str == NULL || *str == NULL)
+	if (str == NULL || *str == NULL || strlen(*str) == 0)
 	{
 		return (NULL);
 	}
@@ -38,6 +38,13 @@ char *trim(char **str)
 	
 	printf("size = %u\n", size);	/* test */
 
+	if (size == 0)
+	{
+		free(*str);
+		*str = NULL;
+		return (NULL);
+	}
+
 	new = malloc((size + 1) * sizeof(char));
 	if (new ==  NULL)
 	{
@@ -51,6 +58,7 @@ char *trim(char **str)
 
 	free(string);
 	string = new;
+	*str = string;
 
-	return (string);
+	return (*str);
 }
