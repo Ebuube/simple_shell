@@ -82,6 +82,7 @@ char **get_args(char *cmd)
 	if (args[0] != NULL && isalpha(args[0][0]))
 	{
 		printf("get_args: args[0][0] -> '%c'\n", args[0][0]);	/* test */
+		printf("get_args: program name starts with an alphabeth -> search for it in PATH\n");	/* test */
 		abs_path = resolve_path(args[0]);
 		if (abs_path != NULL)
 		{

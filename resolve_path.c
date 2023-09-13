@@ -28,7 +28,7 @@ char *resolve_path(const char *prg)
 
 	for (tmp = head; tmp != NULL; tmp = tmp->next)
 	{
-		printf("resolve_path: searching the directory -> '%s'\n", head->dir);	/* test */
+		printf("resolve_path: searching the directory -> '%s'\n", tmp->dir);	/* test */
 		abs_path = search_dir(tmp->dir, prg);
 		if (abs_path != NULL)
 		{
@@ -78,7 +78,7 @@ char *search_dir(const char *dir_name, const char *filename)
 	dir = opendir(dir_name);
 	if (dir == NULL)
 	{
-		printf("search_dir: could not open directory -> %p\n", (void *)dir);	/* test */
+		printf("search_dir: Error could not open directory -> %p\n", (void *)dir);	/* test */
 		return (NULL);
 	}
 	printf("search_dir: successfully opened the directory -> %p\n", (void *)dir);	/* test */
