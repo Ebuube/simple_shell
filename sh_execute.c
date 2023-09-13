@@ -54,13 +54,14 @@ pid_t sh_execute(char *cmd)
 char **get_args(char *cmd)
 {
 	char **args = NULL;
+	const char *DELIM = " \n";
 
 	if (cmd == NULL)
 	{
 		return (NULL);
 	}
 
-	args = tokenize(cmd);
+	args = tokenize(cmd, DELIM);
 	if (args == NULL)
 	{
 		return (NULL);

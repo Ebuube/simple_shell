@@ -4,14 +4,14 @@
 /**
  * tokenize - create an argument vector from a delimited string
  * @str: string to work on
+ * @DELIM: a set of delimiters to use.
  *
  * Description: space and newline delimited entries
  * Return: the argument vector else, NULL on error
  */
-char **tokenize(char *str)
+char **tokenize(char *str, const char *DELIM)
 {
 	char **toks = NULL, *tmp = NULL;
-	const char *DELIM = " \n";
 	bool incomplete = false;
 	size_t i = 0, tok_count = 0;
 
