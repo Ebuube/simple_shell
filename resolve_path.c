@@ -81,6 +81,7 @@ char *search_dir(const char *dir_name, const char *filename)
 		printf("search_dir: Error could not open directory -> %p\n", (void *)dir);	/* test */
 		return (NULL);
 	}
+	printf("\n");	/* test */
 	printf("search_dir: successfully opened the directory -> %p\n", (void *)dir);	/* test */
 
 	for (entry = readdir(dir); entry != NULL; entry = readdir(dir))
@@ -110,5 +111,6 @@ char *search_dir(const char *dir_name, const char *filename)
 		printf("serach_dir: finally returning this as abs_name -> '%s'\n", abs_name);	/* test */
 	else
 		printf("search_dir: finally given file not found.\t abs_name -> %p\n", (void *)abs_name);	/*test */
+	putchar('\n');	/* test */
 	return (abs_name);
 }
