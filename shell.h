@@ -27,6 +27,7 @@ void free_str_safe(char **str);
 /* STRING HANDLERS */
 char *trim(char **str);
 char **tokenize(char *str);
+char **get_args(char *cmd);
 int count_tok(const char *str, const char *delim);
 
 /* SPECIAL VARIABLES */

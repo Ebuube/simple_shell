@@ -11,16 +11,12 @@ pid_t sh_execute(char *cmd)
 	char **args = NULL;
 	pid_t proc_id = 0, status = 0;
 
-	args = tokenize(cmd);
+	args = get_args(cmd);
 	if (cmd == NULL || args == NULL)
 	{
 		return (-1);
 	}
-	if (args[0] == NULL)
-	{/* no program to run */
-		free(args);
-		return (0);
-	}
+
 	proc_id = fork();
 	if (proc_id == -1)
 	{/* Error forking this process */
@@ -47,4 +43,34 @@ pid_t sh_execute(char *cmd)
 	if (args)
 		free(args);
 	return (status);
+}
+
+/**
+ * get_args - create an argument vector from a string of input
+ * @cmd: string value of command
+ *
+ * Return: an argument vector of instructions, else NULL
+ */
+char **get_args(char *cmd)
+{
+	char **args = NULL;
+
+	if (cmd == NULL)
+	{
+		return (NULL);
+	}
+
+	args = tokenize(cmd);
+	if (args == NULL)
+	{
+		return (NULL);
+	}
+	if (args[0] == NULL)
+	{
+		free(args);
+		args = NULL;
+		return (NULL);
+	}
+
+	return (args);
 }
