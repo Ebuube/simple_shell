@@ -29,7 +29,7 @@ char *trim(char **str)
 	size = (end == 0) ? 0 : end - start + 1;
 	if (size == 0)
 	{
-		free(*str);
+		free_str_safe(&*str);
 		*str = NULL;
 		return (NULL);
 	}
@@ -42,7 +42,7 @@ char *trim(char **str)
 	new = strncpy(new, string + start, size);
 	new[size] = '\0';
 
-	free(string);
+	free_str_safe(&string);
 	string = new;
 	*str = string;
 

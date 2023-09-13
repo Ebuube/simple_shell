@@ -8,14 +8,23 @@
  */
 pid_t sh_execute(char *cmd)
 {
-	char *args[2] = {NULL, NULL};
+	char **args = NULL;
 	pid_t proc_id = 0, status = 0;
+	int i = 0;	/* test */
 
-	if (cmd == NULL)
+	args = tokenize(cmd);
+	if (cmd == NULL || args == NULL)
 	{
+		return (-1);
+	}
+	if (args[0] == NULL)
+	{/* no program to run */
+		free(args);
+		args = NULL;
 		return (0);
 	}
-	args[0] = cmd;
+	for (i = 0; args[i]; i++)
+		printf("args[%d] -> '%s'\n", i, args[i]);	/* test */
 
 	proc_id = fork();
 	if (proc_id == -1)
@@ -26,13 +35,17 @@ pid_t sh_execute(char *cmd)
 	if (proc_id == 0)
 	{/* Child process */
 		status = execve(args[0], args, environ);
+		if (args)
+		{
+			free(args);
+			args = NULL;
+		}
+		if (cmd)
+			free_str_safe(&cmd);
+
 		if (status < 0)
 		{/* Error executing command */
 			perror(ERR_PROMPT);
-
-			/* clean up */
-			if (cmd)
-				free(cmd);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -41,6 +54,9 @@ pid_t sh_execute(char *cmd)
 	{/* Parent process */
 		wait(NULL);
 	}
+
+	if (args)
+		free(args);
 
 	return (status);
 }

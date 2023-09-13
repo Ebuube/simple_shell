@@ -25,7 +25,7 @@ void sh_loop(void)
 
 		/* Clean up */
 		if (line)
-			free(line);
+			free_str_safe(&line);
 		fflush(STDIN_FILENO);
 		errno = 0;
 	}

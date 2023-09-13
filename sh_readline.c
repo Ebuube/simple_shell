@@ -15,7 +15,7 @@ char *sh_readline(void)
 	if (nread == -1)
 	{/* END OF FILE */
 		if (line)
-			free(line);
+			free_str_safe(&line);
 		if (interactive)
 			putchar('\n');
 		exit(EXIT_SUCCESS);
