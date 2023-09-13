@@ -68,7 +68,7 @@ char *search_dir(const char *dir_name, const char *filename)
 	DIR *dir = NULL;
 	struct dirent *entry = NULL;
 	char *abs_name = NULL;
-	const char *CUR_WD = ".", *P_WD = ".";
+	const char *CUR_WD = ".", *P_WD = "..";
 
 	if (dir_name == NULL || filename == NULL)
 	{
