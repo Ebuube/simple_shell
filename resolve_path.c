@@ -18,18 +18,19 @@ char *resolve_path(const char *prg)
 	}
 
 	printf("\n");	/* test */
+	printf("resolve_path: Entry into function\n");	/* test */
 	head = path_list();
 	if (head == NULL)
 	{
+		printf("resolve_path: Quiting b/c head -> %p\n", (void *)head);	/* test */
 		return (NULL);
-		printf("resolve_path: head -> %p\n", (void *)head);	/* test */
 	}
 	printf("resolve_path: head -> %p\n\thead->dir: '%s'\n", (void *)head, head->dir);	/* test */
 
 	for (tmp = head; tmp != NULL; tmp = tmp->next)
 	{
 		printf("resolve_path: searching the directory -> '%s'\n", tmp->dir);	/* test */
-		abs_path = search_dir(tmp->dir, prg);
+		abs_path = abspath(tmp->dir, prg);	/* modified */
 		if (abs_path != NULL)
 		{
 			printf("resolve_path: abs_path -> '%s'\tLeaving loop\n", abs_path);	/* test */
@@ -49,6 +50,69 @@ char *resolve_path(const char *prg)
 
 	printf("resolve_path: finally leaving function. abs_path = '%s'\n", abs_path);	/* test */
 	return (abs_path);
+}
+
+/**
+ * abspath - Create the absolute path name of a file in a directory if present
+ * @dir: name of directory to search
+ * @file: file to locate
+ *
+ * Description: this function is not recursive
+ * i.e. it does not search internal directories
+ *
+ * Return: concatenation of directory name and file name if found, else NULL
+ */
+char *abspath(const char *dir, const char *file)
+{
+	struct stat statbuf;
+	char *absolute = NULL;
+	int status = 0;
+	size_t size = 0;
+
+	if (dir == NULL || file == NULL)
+	{
+		return (NULL);
+	}
+	printf("\nabspath: Entered this function\n");	/* test */
+
+	size = strlen(dir) + strlen(FILE_DELIM) + strlen(file) + 1;
+	absolute = malloc(size * sizeof(char));
+	if (absolute == NULL)
+	{
+		printf("abspath: couldn't allocate for path name\n");	/* test */
+		return (NULL);
+	}
+
+	if (strcpy(absolute, dir) == NULL)
+	{
+		free(absolute);
+		printf("abspath: error copying dir to absolute\n");	/* test */
+		return (NULL);
+	}
+	if (strcat(absolute, FILE_DELIM) == NULL)
+	{
+		free(absolute);
+		printf("abspath: error concatenating FILE_DELIM to absolute\n");	/* test */
+		return (NULL);
+	}
+	if (strcat(absolute, file) == NULL)
+	{
+		free(absolute);
+		printf("abspath: error concatenating file to absolute\n");	/* test */
+		return (NULL);
+	}
+
+	printf("absolute: testing path -> '%s'\n", absolute);	/* test */
+	status = stat(absolute, &statbuf);
+	if (status != 0)
+	{/* Could not find file */
+		printf("abspath: satus -> %d\t Leaving function\n", status);	/* test */
+		free(absolute);
+		return (NULL);
+	}
+
+	printf("abspath: File found!\t absolute path -> '%s'\n", absolute);	/* test */
+	return (absolute);
 }
 
 

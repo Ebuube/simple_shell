@@ -7,7 +7,9 @@
 #include "_getenv.h"
 #include <ctype.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <dirent.h>
+#include <unistd.h>
 
 /* DATA STRUCTURE */
 
@@ -26,6 +28,7 @@ typedef struct dir_list_s
 
 /* SYSTEM FILE HANDLERS */
 char *resolve_path(const char *prg);
+char *abspath(const char *dir, const char *file);
 char *search_dir(const char *dir_name, const char *filename);
 
 /* DATA STRUCTURES */

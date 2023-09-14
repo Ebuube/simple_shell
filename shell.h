@@ -22,6 +22,7 @@
 #define BUFSIZE 81
 #define SHELL_PROMPT "$ "
 #define UNUSED __attribute__((unused))
+#define FILE_DELIM "/"
 
 /* FUNCTIONS */
 

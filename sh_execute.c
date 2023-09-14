@@ -25,6 +25,10 @@ pid_t sh_execute(char *cmd)
 	if (proc_id == 0)
 	{/* Child process */
 		status = execve(args[0], args, environ);
+		/* if (args[0])
+		{
+			free(args[0]);
+		} */
 		if (args)
 		{
 			free(args);
@@ -86,14 +90,18 @@ char **get_args(char *cmd)
 		abs_path = resolve_path(args[0]);
 		if (abs_path != NULL)
 		{
-			free_str_safe(&args[0]);
+			/* free_str_safe(&args[0]); */
 			args[0] = abs_path;
-			printf("get_args: abs_path -> %p\n", (void *)abs_path);	/* test */
+			printf("get_args: abs_path -> %p\n", (void *)args[0]);	/* test */
 		}
 		else
-			printf("get_args: abs_path -> '%s'\n", abs_path);	/* test */
+			printf("get_args: abs_path -> '%s'\n", args[0]);	/* test */
 	}
 	/* */
 
+	if (args[0])
+		printf("get_args: args[0] -> '%s'\n", args[0]);		/* test */
+	else
+		printf("get_args: args[0] -> %p\n", (void *)args[0]);	/* test */
 	return (args);
 }
