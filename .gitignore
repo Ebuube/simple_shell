@@ -3,3 +3,9 @@
 
 # Tests
 test/*
+
+# Reserve
+new/
+
+# Executable progrm
+hsh
