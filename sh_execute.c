@@ -10,8 +10,9 @@ pid_t sh_execute(char *cmd)
 {
 	char **args = NULL;
 	pid_t proc_id = 0, status = 0;
+	bool found_path = false;
 
-	args = get_args(cmd);
+	args = get_args(cmd, &found_path);
 	if (cmd == NULL || args == NULL)
 	{
 		return (-1);
@@ -24,18 +25,15 @@ pid_t sh_execute(char *cmd)
 	}
 	if (proc_id == 0)
 	{/* Child process */
-		status = execve(args[0], args, environ);
-		/* if (args[0])
-		{
-			free(args[0]);
-		} */
-		if (args)
-		{
-			free(args);
-			args = NULL;
-		}
 		if (cmd)
 			free_str_safe(&cmd);
+		status = execve(args[0], args, environ);
+		if (found_path == true)
+		{
+			free(args[0]);
+		}
+		free(args);
+		args = NULL;
 		if (status < 0)
 		{/* Error executing command */
 			perror(ERR_PROMPT);
@@ -52,6 +50,7 @@ pid_t sh_execute(char *cmd)
 /**
  * get_args - create an argument vector from a string of input
  * @cmd: string value of command
+ * @found_path: A pointer that is set to true if path was found
  *
  * Description: It attempts resolving the name of the program
  * to a file in PATH if possible, else
@@ -59,17 +58,16 @@ pid_t sh_execute(char *cmd)
  *
  * Return: an argument vector of instructions, else NULL
  */
-char **get_args(char *cmd)
+char **get_args(char *cmd, bool *found_path)
 {
 	char **args = NULL, *abs_path = NULL;
 	const char *DELIM = " \n";
 
-	if (cmd == NULL)
+	if (cmd == NULL || found_path == NULL)
 	{
 		return (NULL);
 	}
 
-	printf("\n");	/* test */
 	args = tokenize(cmd, DELIM);
 	if (args == NULL)
 	{
@@ -82,26 +80,16 @@ char **get_args(char *cmd)
 		return (NULL);
 	}
 
-	/* */
 	if (args[0] != NULL && isalpha(args[0][0]))
 	{
-		printf("get_args: args[0][0] -> '%c'\n", args[0][0]);	/* test */
-		printf("get_args: program name starts with an alphabeth -> search for it in PATH\n");	/* test */
 		abs_path = resolve_path(args[0]);
 		if (abs_path != NULL)
 		{
 			/* free_str_safe(&args[0]); */
 			args[0] = abs_path;
-			printf("get_args: abs_path -> %p\n", (void *)args[0]);	/* test */
+			*found_path = true;
 		}
-		else
-			printf("get_args: abs_path -> '%s'\n", args[0]);	/* test */
 	}
-	/* */
 
-	if (args[0])
-		printf("get_args: args[0] -> '%s'\n", args[0]);		/* test */
-	else
-		printf("get_args: args[0] -> %p\n", (void *)args[0]);	/* test */
 	return (args);
 }

@@ -35,7 +35,8 @@ pid_t sh_execute(char *cmd);
 /* STRING HANDLERS */
 char *trim(char **str);
 char **tokenize(char *str, const char *DELIM);
-char **get_args(char *cmd);
+/* char **get_args(char *cmd); */
+char **get_args(char *cmd, bool *found_path);
 int count_tok(const char *str, const char *delim);
 void free_str_safe(char **str);
 

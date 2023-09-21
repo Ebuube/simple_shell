@@ -9,7 +9,7 @@
  */
 char *resolve_path(const char *prg)
 {
-	char *abs_path = NULL;
+	char *abs_path = NULL, *new = NULL;
 	dir_list_t *head = NULL, *tmp = NULL;
 
 	if (prg == NULL)
@@ -17,38 +17,31 @@ char *resolve_path(const char *prg)
 		return (NULL);
 	}
 
-	printf("\n");	/* test */
-	printf("resolve_path: Entry into function\n");	/* test */
 	head = path_list();
 	if (head == NULL)
 	{
-		printf("resolve_path: Quiting b/c head -> %p\n", (void *)head);	/* test */
 		return (NULL);
 	}
-	printf("resolve_path: head -> %p\n\thead->dir: '%s'\n", (void *)head, head->dir);	/* test */
 
 	for (tmp = head; tmp != NULL; tmp = tmp->next)
 	{
-		printf("resolve_path: searching the directory -> '%s'\n", tmp->dir);	/* test */
 		abs_path = abspath(tmp->dir, prg);	/* modified */
 		if (abs_path != NULL)
 		{
-			printf("resolve_path: abs_path -> '%s'\tLeaving loop\n", abs_path);	/* test */
-			/* expecting abs_path will be deleted after this
-			 * function is exited
-			 *
-			 * abs_path = strdup(abs_path);
-			 * if (abs_path == NULL)
-			 *	return (NULL);
-			 */
+			new = strdup(abs_path);
+			if (new == NULL)
+			{
+				free(abs_path);
+				return (NULL);
+			}
+			free(abs_path);
+			abs_path = new;
 			break;
 		}
 	}
-
 	/* Clean up */
 	free_dir_list(&head);
 
-	printf("resolve_path: finally leaving function. abs_path = '%s'\n", abs_path);	/* test */
 	return (abs_path);
 }
 
@@ -73,45 +66,36 @@ char *abspath(const char *dir, const char *file)
 	{
 		return (NULL);
 	}
-	printf("\nabspath: Entered this function\n");	/* test */
 
 	size = strlen(dir) + strlen(FILE_DELIM) + strlen(file) + 1;
 	absolute = malloc(size * sizeof(char));
 	if (absolute == NULL)
 	{
-		printf("abspath: couldn't allocate for path name\n");	/* test */
 		return (NULL);
 	}
-
 	if (strcpy(absolute, dir) == NULL)
 	{
 		free(absolute);
-		printf("abspath: error copying dir to absolute\n");	/* test */
 		return (NULL);
 	}
 	if (strcat(absolute, FILE_DELIM) == NULL)
 	{
 		free(absolute);
-		printf("abspath: error concatenating FILE_DELIM to absolute\n");	/* test */
 		return (NULL);
 	}
 	if (strcat(absolute, file) == NULL)
 	{
 		free(absolute);
-		printf("abspath: error concatenating file to absolute\n");	/* test */
 		return (NULL);
 	}
 
-	printf("absolute: testing path -> '%s'\n", absolute);	/* test */
 	status = stat(absolute, &statbuf);
 	if (status != 0)
 	{/* Could not find file */
-		printf("abspath: satus -> %d\t Leaving function\n", status);	/* test */
 		free(absolute);
 		return (NULL);
 	}
 
-	printf("abspath: File found!\t absolute path -> '%s'\n", absolute);	/* test */
 	return (absolute);
 }
 
@@ -138,43 +122,31 @@ char *search_dir(const char *dir_name, const char *filename)
 	{
 		return (NULL);
 	}
-	printf("\n");	/* test */
 	dir = opendir(dir_name);
 	if (dir == NULL)
 	{
-		printf("search_dir: Error could not open directory -> %p\n", (void *)dir);	/* test */
 		return (NULL);
 	}
-	printf("\n");	/* test */
-	printf("search_dir: successfully opened the directory -> %p\n", (void *)dir);	/* test */
 
 	for (entry = readdir(dir); entry != NULL; entry = readdir(dir))
 	{
-		printf("search_dir: accessing the entry -> '%s'\n", entry->d_name);	/* test */
 		if (entry->d_type == DT_DIR &&
-			((strcmp(entry->d_name, CUR_WD) == 0) || (strcmp(entry->d_name, P_WD) == 0)))
-		{/* Don't do recursive search in Parent (..) and current (.) working directory aliases */
+			((strcmp(entry->d_name, CUR_WD) == 0) ||
+			 (strcmp(entry->d_name, P_WD) == 0)))
+		{
 			continue;
 		}
 		if (entry->d_type == DT_DIR)
 		{/* recursive searching */
-			printf("search_dir: do recursive search in the directory -> '%s'\n", entry->d_name);	/* test */
 			abs_name = search_dir(entry->d_name, filename);
 		}
 		else if (strcmp(entry->d_name, filename) == 0)
 		{
-			printf("search_dir: Found! entry -> '%s' equals given file '%s'\n", entry->d_name, filename);	/* test */
 			abs_name = entry->d_name;
 			break;
 		}
 	}
 
 	closedir(dir);
-	printf("search_dir: closing the directory -> %p\n", (void *)dir);	/* test */
-	if (abs_name != NULL)
-		printf("serach_dir: finally returning this as abs_name -> '%s'\n", abs_name);	/* test */
-	else
-		printf("search_dir: finally given file not found.\t abs_name -> %p\n", (void *)abs_name);	/*test */
-	putchar('\n');	/* test */
 	return (abs_name);
 }
