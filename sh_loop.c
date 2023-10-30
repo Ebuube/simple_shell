@@ -14,6 +14,7 @@ pid_t sh_loop(void)
 	interactive = isatty(STDIN_FILENO);
 	while (1)
 	{
+		changed = false;
 		line = NULL;
 		if (interactive)
 			printf(SHELL_PROMPT);
@@ -27,12 +28,14 @@ pid_t sh_loop(void)
 		}
 		printf("sh_loop: line -> '%s'\n", line);	/* test */
 
-		args = tokenize(line);
+		args = tokenize(line, NULL);
 		if (args != NULL && args[0] != NULL)
 		{
-			if (add_path(args, &changed))
+			add_path(args, &changed);
+			if (args && args[0] != NULL)
 				status = sh_execute(args);
-			if (changed == true && status == 0)
+
+			if (changed == true)
 				free(args[0]);
 			/* free(args); */
 			args[0] = "dummy";

@@ -23,6 +23,7 @@ typedef struct dir_list_s
 dir_list_t *path_list(void);
 dir_list_t *add_dir_list_node(dir_list_t **head, const char *dir_name);
 void free_dir_list(dir_list_t **head);
+char **tokenize(char *str, const char *delim);
 
 extern char **environ;
 

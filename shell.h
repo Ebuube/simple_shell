@@ -29,7 +29,7 @@ char **add_path(char **args, bool *changed);
 
 /* STRING HANDLERS */
 char *trim(char **str);
-char **tokenize(char *str);
+char **tokenize(char *str, const char *delim);
 int count_tok(const char *str, const char *delim);
 int free_array(char **array);
 

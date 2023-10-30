@@ -25,7 +25,7 @@ dir_list_t *path_list(void)
 		return (NULL);
 	}
 
-	dir_array = _strtok(path, PATH_DELIM);
+	dir_array = tokenize(path, PATH_DELIM);
 	if (dir_array == NULL)
 	{
 		return (NULL);
