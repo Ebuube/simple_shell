@@ -2,7 +2,7 @@
 
 /**
  * free_array - free pointers in a 1D array of strings
- * @array - the head of the items to free
+ * @array: the head of the items to free
  *
  * Return: 0 on success, else -1 on failure
  */

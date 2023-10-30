@@ -32,6 +32,7 @@ char *trim(char **str);
 char **tokenize(char *str, const char *delim);
 int count_tok(const char *str, const char *delim);
 int free_array(char **array);
+char *strjoin(const char *str1, const char *sep, const char *str2);
 
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;
