@@ -1,0 +1,11 @@
+# All are expected to fail
+
+dahda
+lsd -dreada
+
+ls -R adakhdafdafd
+
+rm ahdadoajahbadhada
+
+
+git log -3
