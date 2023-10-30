@@ -1,0 +1,7 @@
+ls -R
+
+
+mkdir --parents all/is/well
+
+
+echo "hello_world"
