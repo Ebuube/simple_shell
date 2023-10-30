@@ -66,6 +66,9 @@ pid_t sh_run(char *line)
 	found = add_path(args, &changed);
 	if (args && args[0] != NULL && found != NULL)
 		status = sh_execute(args);
+	else if (args && args[0] != NULL)
+		fprintf(stderr, "%s: 1: %s: not found\n",
+			ERR_PROMPT, args[0]);
 	if (changed == true)
 		free(args[0]);
 	args[0] = "dummy";
