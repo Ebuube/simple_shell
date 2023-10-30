@@ -1,11 +1,11 @@
-# All are expected to fail
-
+echo "Testing non-existing commands"
 dahda
 lsd -dreada
 
 ls -R adakhdafdafd
 
-rm ahdadoajahbadhada
+rdm ahdadoajahbadhada
 
 
-git log -3
+giat log -3
+echo "Done testing non-existing commands"

@@ -1,0 +1,7 @@
+echo "Testing 'exit' builtin"
+
+echo "Should exit without showing the message 'I did not exit'"
+
+exit
+
+echo "I did not exit"

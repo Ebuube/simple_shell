@@ -1,7 +1,8 @@
+echo "Testing existing commands can be executed"
 ls -R
 
 
-mkdir --parents all/is/well
+which echo
 
 
-echo "hello_world"
+echo "Done testing existing commands"

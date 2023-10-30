@@ -17,6 +17,12 @@ int main(UNUSED int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	ERR_PROMPT = argv[0];
+	SHELL.interactive = isatty(STDIN_FILENO);
+	SHELL.ERR_NO_BUILTIN = -14;
+	SHELL.BUILTIN_SUCCESS = 14;
+	SHELL.END_SUCCESS = 134;
+	SHELL.END_FAILURE = 123;
+	SHELL.FORK_EXEC_FAILURE = -412;
 
 	sh_loop();
 
