@@ -28,7 +28,7 @@ char **add_path(char **args, bool *changed)
 	path = path_list();
 	for (tmp = path; tmp != NULL; tmp = tmp->next)
 	{/* check path/cmd_name */
-		cmd = strjoin(cmd, FILE_SEP, tmp->dir);	/* testing */
+		cmd = strjoin(tmp->dir, FILE_SEP, args[0]);
 		if (cmd == NULL)
 			break;
 
