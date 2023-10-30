@@ -43,11 +43,12 @@ pid_t sh_loop(void)
  * sh_run - prepare and execute a line
  * @line: line for execution
  *
+ * Description: A new child is not called if command doesn't exist
  * Return: status of execution
  */
 pid_t sh_run(char *line)
 {
-	char **args = NULL;
+	char **args = NULL, **found = NULL;
 	bool changed = false;
 	pid_t status = 0;
 
@@ -62,8 +63,8 @@ pid_t sh_run(char *line)
 		return (0);
 	}
 
-	add_path(args, &changed);
-	if (args && args[0] != NULL)
+	found = add_path(args, &changed);
+	if (args && args[0] != NULL && found != NULL)
 		status = sh_execute(args);
 	if (changed == true)
 		free(args[0]);
