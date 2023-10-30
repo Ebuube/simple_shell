@@ -19,8 +19,8 @@
 
 /* FUNCTIONS */
 char *sh_readline(void);
-void sh_loop(void);
-pid_t sh_execute(char *cmd);
+pid_t sh_loop(void);
+pid_t sh_execute(char **cmd);
 void sig_handler(int signo);
 void free_str_safe(char **str);
 
@@ -28,6 +28,7 @@ void free_str_safe(char **str);
 char *trim(char **str);
 char **tokenize(char *str);
 int count_tok(const char *str, const char *delim);
+int free_array(char **array);
 
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;

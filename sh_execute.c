@@ -2,25 +2,22 @@
 
 /**
  * sh_execute - execute the passed program
- * @cmd: the command to execute
+ * @cmd: a list containing command and args as strings
  *
  * Return: 0 on success, else -1 on failure.
  */
-pid_t sh_execute(char *cmd)
+pid_t sh_execute(char **cmd)
 {
-	char **args = NULL;
+	int a = 0;	/* test */
 	pid_t proc_id = 0, status = 0;
 
-	args = tokenize(cmd);
-	if (cmd == NULL || args == NULL)
+	/* test start*/
+	for (a = 0; cmd && cmd[a] != NULL; a++)
 	{
-		return (-1);
+		printf("sh_execute: cmd[%d]: '%s'\n", a, cmd[a]);
 	}
-	if (args[0] == NULL)
-	{/* no program to run */
-		free(args);
-		return (0);
-	}
+	/* test end */
+
 	proc_id = fork();
 	if (proc_id == -1)
 	{/* Error forking this process */
@@ -28,23 +25,32 @@ pid_t sh_execute(char *cmd)
 	}
 	if (proc_id == 0)
 	{/* Child process */
-		status = execve(args[0], args, environ);
-		if (args)
-		{
-			free(args);
-			args = NULL;
-		}
-		if (cmd)
-			free_str_safe(&cmd);
+		status = execve(cmd[0], cmd, environ);
+		/* free_array(cmd); */
+		/* free(cmd); */
 		if (status < 0)
 		{/* Error executing command */
+			printf("sh_execute(child): Execution failure; Status = %d\n",
+				status);	/* test */
 			perror(ERR_PROMPT);
-			exit(EXIT_FAILURE);
+			/* free(cmd); */
+			/* exit(EXIT_FAILURE); */
+			return (status);
 		}
 	}
 	if (proc_id > 0)	/* Parent process */
+	{
+		printf("sh_execute(parent[%d]): started waiting\n",
+			proc_id);	/* test */ 
 		wait(NULL);
-	if (args)
-		free(args);
+		printf("sh_execute(parent[%d]): stopped waiting\n",
+			proc_id);	/* test */ 
+		printf("sh_execute(parent[%d]): status = %d\n",
+			proc_id, status);	/* test */ 
+	}
+	/*
+	if (cmd)
+		free(cmd);
+	*/
 	return (status);
 }
