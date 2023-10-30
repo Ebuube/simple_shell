@@ -8,6 +8,7 @@
 pid_t sh_loop(void)
 {
 	char *line = NULL, **args = NULL;
+	bool changed = false;
 	pid_t status = 0, ret_val = 0;
 
 	interactive = isatty(STDIN_FILENO);
@@ -29,9 +30,12 @@ pid_t sh_loop(void)
 		args = tokenize(line);
 		if (args != NULL && args[0] != NULL)
 		{
-			status = sh_execute(args);
-			/* free_array(args); */
+			if (add_path(args, &changed))
+				status = sh_execute(args);
+			if (changed == true && status == 0)
+				free(args[0]);
 			/* free(args); */
+			args[0] = "dummy";
 		}
 
 		free(args);

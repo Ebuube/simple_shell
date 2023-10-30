@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 /* MACROS */
 #define BUFSIZE 81
@@ -23,6 +25,7 @@ pid_t sh_loop(void);
 pid_t sh_execute(char **cmd);
 void sig_handler(int signo);
 void free_str_safe(char **str);
+char **add_path(char **args, bool *changed);
 
 /* STRING HANDLERS */
 char *trim(char **str);
