@@ -23,6 +23,7 @@
 char *sh_readline(void);
 pid_t sh_loop(void);
 pid_t sh_execute(char **cmd);
+pid_t sh_run(char *line);
 void sig_handler(int signo);
 void free_str_safe(char **str);
 char **add_path(char **args, bool *changed);

@@ -7,14 +7,12 @@
  */
 pid_t sh_loop(void)
 {
-	char *line = NULL, **args = NULL;
-	bool changed = false;
-	pid_t status = 0, ret_val = 0;
+	char *line = NULL;
+	pid_t status = 0;
 
 	interactive = isatty(STDIN_FILENO);
 	while (1)
 	{
-		changed = false;
 		line = NULL;
 		if (interactive)
 			printf(SHELL_PROMPT);
@@ -26,33 +24,51 @@ pid_t sh_loop(void)
 			errno = 0;
 			continue;
 		}
-		printf("sh_loop: line -> '%s'\n", line);	/* test */
+		status = sh_run(line);
 
-		args = tokenize(line, NULL);
-		if (args != NULL && args[0] != NULL)
-		{
-			add_path(args, &changed);
-			if (args && args[0] != NULL)
-				status = sh_execute(args);
-
-			if (changed == true)
-				free(args[0]);
-			/* free(args); */
-			args[0] = "dummy";
-		}
-
-		free(args);
 		free_str_safe(&line);
 		fflush(STDIN_FILENO);
 		errno = 0;
 		if (status < 0)
 		{/* child process could not execute the command */
-			ret_val = status;
-			printf("sh_loop(child): qutting; status = %d\n",
-				status);	/* test */
 			exit(EXIT_FAILURE);
 		}
 	}
 
-	return (ret_val);
+	return (status);
+}
+
+
+/**
+ * sh_run - prepare and execute a line
+ * @line: line for execution
+ *
+ * Return: status of execution
+ */
+pid_t sh_run(char *line)
+{
+	char **args = NULL;
+	bool changed = false;
+	pid_t status = 0;
+
+	if (line == NULL)
+	{
+		return (0);
+	}
+
+	args = tokenize(line, NULL);
+	if (args == NULL)
+	{
+		return (0);
+	}
+
+	add_path(args, &changed);
+	if (args && args[0] != NULL)
+		status = sh_execute(args);
+	if (changed == true)
+		free(args[0]);
+	args[0] = "dummy";
+	free(args);
+
+	return (status);
 }
