@@ -13,6 +13,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <ctype.h>
 
 /* MACROS */
 #define BUFSIZE 81

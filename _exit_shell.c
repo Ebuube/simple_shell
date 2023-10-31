@@ -9,6 +9,9 @@
  */
 pid_t _exit_shell(const char **args)
 {
+	int status = 0, i = 0;
+	const int EXIT_DEFAULT = 2;
+
 	if (args == NULL && args[0] == NULL)
 	{
 		return (SHELL.BUILTIN_FAILURE);
@@ -20,7 +23,20 @@ pid_t _exit_shell(const char **args)
 		return (SHELL.BUILTIN_SUCCESS);
 	}
 
-	SHELL.LAST_EXIT_STATUS = atoi(args[1]);
+	for (i = 0; args[1][i] != '\0'; i++)
+	{
+		if (isalpha(args[1][i]))
+			status = -1;
+		else
+			status = atoi(args[1]);
+	}
+	if (status < 0)
+	{
+		fprintf(stderr, "%s: 1: exit: illegal number: %s\n",
+			ERR_PROMPT, args[1]);
+		status = EXIT_DEFAULT;
+	}
+	SHELL.LAST_EXIT_STATUS = status;
 
 	return (SHELL.BUILTIN_SUCCESS);
 }
