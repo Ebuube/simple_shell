@@ -102,7 +102,7 @@ int run_builtin(const char *builtin)
 {
 	int i = 0;
 	builtin_t funcs[] = {
-		{"exit", _exit_shell}, {NULL, NULL}
+		{"exit", _exit_shell}, {"env", _env_builtin}, {NULL, NULL}
 	};
 
 	if (builtin == NULL)
