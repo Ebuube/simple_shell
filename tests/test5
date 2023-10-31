@@ -1,0 +1,12 @@
+echo "Testing the env builtin"
+
+echo "Renamed env program"
+sudo mv /usr/bin/env /usr/bin/pre_shell_env
+
+echo "Expecting the builtin to run"
+env
+
+echo "Restoring env program"
+sudo mv /usr/bin/pre_shell_env /usr/bin/env
+echo "env program restored"
+echo "Done testing Builtin"
