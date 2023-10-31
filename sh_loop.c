@@ -28,13 +28,17 @@ pid_t sh_loop(void)
 
 		free_str_safe(&line);
 		fflush(STDIN_FILENO);
-		if (status == SHELL.FORK_EXEC_FAILURE ||
-			errno == SHELL.END_FAILURE)
+		if (status == SHELL.FORK_EXEC_FAILURE)
 		{/* child process could not execute the command */
+			printf("sh_loop: child process could not execute command\n");	/* test */
 			exit(EXIT_FAILURE);
 		}
-		if (errno == SHELL.END_SUCCESS)
-			exit(EXIT_SUCCESS);
+		if (errno == SHELL.END_SHELL)
+		{
+			printf("sh_loop[ppid:%d][pid:%d]: exiting with %d\n",
+				getppid(), getpid(), SHELL.LAST_EXIT_STATUS);
+			exit(SHELL.LAST_EXIT_STATUS);
+		}
 	}
 
 	return (status);

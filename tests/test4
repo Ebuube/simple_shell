@@ -1,0 +1,6 @@
+echo "Testing 'exit' builtin"
+echo "Should end the shell session with the status of the last run command"
+
+/bin/ls dafagagbabpaijacadae
+exit
+echo "Done Testing 'exit' builtin: If you see this then the builtin is not working"

@@ -7,6 +7,6 @@
  */
 pid_t _exit_shell(void)
 {
-	errno = SHELL.END_SUCCESS;
+	errno = SHELL.END_SHELL;
 	return (SHELL.BUILTIN_SUCCESS);
 }

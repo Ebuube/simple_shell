@@ -12,5 +12,5 @@ void sig_handler(UNUSED int signo)
 	printf("SIG NUMBER -> %d\nTerminating\n", signo);
 #endif
 	putchar('\n');
-	exit(EXIT_SUCCESS);
+	exit(SHELL.LAST_EXIT_STATUS);
 }

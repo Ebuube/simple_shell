@@ -65,6 +65,8 @@ typedef struct builtin_s
  * @FORK_EXEC_FAILURE: could not fork new process
  * @END_SUCCESS: Code to terminate shell successfully
  * @END_FAILURE: Code to termniate shell with failure
+ * @LAST_EXIT_STATUS: Status of the last executed function
+ * @END_SHELL: Signal to end the current shell session
  */
 typedef struct SH_POD_S
 {
@@ -74,6 +76,8 @@ typedef struct SH_POD_S
 	int FORK_EXEC_FAILURE;
 	int END_SUCCESS;
 	int END_FAILURE;
+	int LAST_EXIT_STATUS;
+	int END_SHELL;
 } SH_POD_T;
 extern SH_POD_T SHELL;
 SH_POD_T SHELL;
