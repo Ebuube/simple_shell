@@ -67,6 +67,7 @@ typedef struct builtin_s
  * @END_FAILURE: Code to termniate shell with failure
  * @LAST_EXIT_STATUS: Status of the last executed function
  * @END_SHELL: Signal to end the current shell session
+ * @CMD_NOT_FOUND: Command does not exist
  */
 typedef struct SH_POD_S
 {
@@ -78,6 +79,7 @@ typedef struct SH_POD_S
 	int END_FAILURE;
 	int LAST_EXIT_STATUS;
 	int END_SHELL;
+	int CMD_NOT_FOUND;
 } SH_POD_T;
 extern SH_POD_T SHELL;
 SH_POD_T SHELL;

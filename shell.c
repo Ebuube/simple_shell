@@ -25,6 +25,7 @@ int main(UNUSED int argc, char *argv[])
 	SHELL.END_SHELL = 145;
 	SHELL.FORK_EXEC_FAILURE = -412;
 	SHELL.LAST_EXIT_STATUS = 0;
+	SHELL.CMD_NOT_FOUND = 127;
 
 	sh_loop();
 

@@ -35,8 +35,6 @@ pid_t sh_loop(void)
 		}
 		if (errno == SHELL.END_SHELL)
 		{
-			printf("sh_loop[ppid:%d][pid:%d]: exiting with %d\n",
-				getppid(), getpid(), SHELL.LAST_EXIT_STATUS);
 			exit(SHELL.LAST_EXIT_STATUS);
 		}
 	}
@@ -84,6 +82,7 @@ pid_t sh_run(char *line)
 	{
 		fprintf(stderr, "%s: 1: %s: not found\n",
 			ERR_PROMPT, args[0]);
+		SHELL.LAST_EXIT_STATUS = SHELL.CMD_NOT_FOUND;
 	}
 	if (changed == true)
 		free(args[0]);

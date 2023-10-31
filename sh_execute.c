@@ -32,8 +32,6 @@ pid_t sh_execute(char **cmd)
 		if (WIFEXITED(wstatus))
 		{/* if child exited normally, get its exit status */
 			SHELL.LAST_EXIT_STATUS = WEXITSTATUS(wstatus);
-			fprintf(stderr, "sh_execute[ppid:%d][pid:%d]: child exit status = %d\n",
-				getppid(), getpid(), SHELL.LAST_EXIT_STATUS);
 		}
 	}
 
