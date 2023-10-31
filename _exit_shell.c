@@ -12,7 +12,7 @@ pid_t _exit_shell(const char **args)
 	int status = 0, i = 0;
 	const int EXIT_DEFAULT = 2;
 
-	if (args == NULL && args[0] == NULL)
+	if (args == NULL || args[0] == NULL)
 	{
 		return (SHELL.BUILTIN_FAILURE);
 	}

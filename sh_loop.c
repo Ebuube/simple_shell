@@ -103,7 +103,9 @@ int run_builtin(const char *builtin, const char **args)
 {
 	int i = 0;
 	builtin_t funcs[] = {
-		{"exit", _exit_shell}, {"env", _env_builtin}, {NULL, NULL}
+		{"exit", _exit_shell}, {"env", _env_builtin},
+		{"setenv", _setenv_btn}, {"unsetenv", _unsetenv_btn},
+		{NULL, NULL}
 	};
 
 	if (builtin == NULL)

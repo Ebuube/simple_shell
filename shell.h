@@ -40,6 +40,8 @@ char *strjoin(const char *str1, const char *sep, const char *str2);
 /* SHELL BUILTINS */
 pid_t _exit_shell(UNUSED const char **args);
 pid_t _env_builtin(UNUSED const char **args);
+pid_t _setenv_btn(UNUSED const char **args);
+pid_t _unsetenv_btn(UNUSED const char **args);
 
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;

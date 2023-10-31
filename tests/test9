@@ -1,0 +1,56 @@
+echo "Test 1: Testing setenv | Usage: setenv VARIABLE VALUE"
+
+echo "Run with no arguments and error message is expected: `setenv`"
+setenv
+
+echo "Run with 1 argument and error message is expected: `setenv my_choking_style`"
+setenv my_choking_style
+
+echo "Run with 2 arguments: `setenv my_choking_style smart`"
+setenv my_choking_style smart
+
+echo "Look for it in enviromental variables
+env
+
+echo ""
+echo ""
+echo "Test 2: Modifying environmental variable using `setenv` builtin"
+echo "Usage: setenv VARIABLE VALUE"
+echo "Will run: `setenv my_choking_style cool`"
+setenv my_choking_style cool
+
+echo "Look for it and see that the enviromental variable has been changed to 'cool"
+env
+
+echo ""
+echo ""
+echo "Test 3: Running `setenv` with more than enough arguments"
+echo "Error message is raised"
+setenv my_choking_style sharp laughter
+
+echo ""
+echo ""
+echo "Test 4: Testing unsetenv | Usage: unsetnv VARIABLE"
+
+echo "Run with no arguments and error message is expected: `unsetenv`"
+unsetenv
+
+echo "Run with an argument: `unsetenv my_choking_style`"
+unsetenv my_choking_style
+
+echo "Look for it in environmental variables"
+env
+
+echo ""
+echo ""
+echo "Did you see it? :) Of course not!"
+
+
+echo ""
+echo ""
+echo "Test 5: Running `unsetenv` with more than enough arguments"
+echo "Error message is raised"
+unsetenv my_choking_style sharp
+
+echo ""
+echo "Done testing!"
