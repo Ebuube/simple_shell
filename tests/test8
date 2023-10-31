@@ -1,0 +1,6 @@
+echo "Testing wrong exit code: using a string as exit status"
+echo "Usage: exit [status_code]"
+echo "Will run: exit  HBTN"
+echo "Expecting error message and an exit status of 2"
+echo "Run the command 'echo $?' and ensure you get this as the exit status"
+exit HBTN

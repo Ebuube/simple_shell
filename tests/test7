@@ -1,0 +1,6 @@
+echo "Testing wrong exit code: using a negative exit status"
+echo "Usage: exit [status_code]"
+echo "Will run: exit  -98"
+echo "Expecting error message and an exit status of 2"
+echo "Run the command 'echo $?' and ensure you get this as the exit status"
+exit -98
