@@ -32,7 +32,7 @@ pid_t _exit_shell(const char **args)
 	}
 	if (status < 0)
 	{
-		fprintf(stderr, "%s: 1: exit: illegal number: %s\n",
+		fprintf(stderr, "%s: 1: exit: Illegal number: %s\n",
 			ERR_PROMPT, args[1]);
 		status = EXIT_DEFAULT;
 	}
