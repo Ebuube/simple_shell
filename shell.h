@@ -27,7 +27,7 @@ pid_t sh_run(char *line);
 void sig_handler(int signo);
 void free_str_safe(char **str);
 char **add_path(char **args, bool *changed);
-int run_builtin(const char *builtin);
+int run_builtin(const char *builtin, const char **args);
 
 /* STRING HANDLERS */
 char *trim(char **str);
@@ -37,8 +37,8 @@ int free_array(char **array);
 char *strjoin(const char *str1, const char *sep, const char *str2);
 
 /* SHELL BUILTINS */
-pid_t _exit_shell(void);
-pid_t _env_builtin(void);
+pid_t _exit_shell(UNUSED const char **args);
+pid_t _env_builtin(UNUSED const char **args);
 
 /* SPECIAL VARIABLES */
 extern char *ERR_PROMPT;
@@ -54,7 +54,7 @@ extern char **environ;
 typedef struct builtin_s
 {
 	char *opcode;
-	pid_t (*f)(void);
+	pid_t (*f)(const char **);
 	/* pid_t _exit_shell(void) */
 } builtin_t;
 
@@ -63,6 +63,7 @@ typedef struct builtin_s
  * @interactive: if shell is running interactively or not
  * @ERR_NO_BUILTIN: Code if builtin does not exist
  * @BUILTIN_SUCCESS: exit code if builtin executed well
+ * @BUILTIN_FAILURE: Builtin did not execute properly
  * @FORK_EXEC_FAILURE: could not fork new process
  * @END_SUCCESS: Code to terminate shell successfully
  * @END_FAILURE: Code to termniate shell with failure
@@ -75,6 +76,7 @@ typedef struct SH_POD_S
 	bool interactive;
 	int ERR_NO_BUILTIN;
 	int BUILTIN_SUCCESS;
+	int BUILTIN_FAILURE;
 	int FORK_EXEC_FAILURE;
 	int END_SUCCESS;
 	int END_FAILURE;

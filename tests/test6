@@ -1,0 +1,6 @@
+echo "Testing 'exit' with arguments"
+echo "Usage: exit [status_code]"
+echo "Will run: exit 98"
+echo "After this execution, run `echo $?`"
+echo "Expecting 98"
+exit 98

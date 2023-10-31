@@ -75,7 +75,7 @@ pid_t sh_run(char *line)
 	if (args && args[0] != NULL && found == NULL)
 	{
 		errno = 0;
-		status = run_builtin(args[0]);
+		status = run_builtin(args[0], (const char **)args);
 	}
 	if (errno == SHELL.ERR_NO_BUILTIN ||
 		status == SHELL.ERR_NO_BUILTIN)
@@ -95,10 +95,11 @@ pid_t sh_run(char *line)
 /**
  * run_builtin - executes a SHELL_BUILTIN
  * @builtin: name of builtin to execute
+ * @args: a vector of all arguments from cmd as well as builtin
  *
  * Return: the return status of the builtin
  */
-int run_builtin(const char *builtin)
+int run_builtin(const char *builtin, const char **args)
 {
 	int i = 0;
 	builtin_t funcs[] = {
@@ -113,7 +114,7 @@ int run_builtin(const char *builtin)
 	{
 		if (strcmp(builtin, funcs[i].opcode) == 0)
 		{/* run and return exit status */
-			return (funcs[i].f());
+			return (funcs[i].f(args));
 		}
 	}
 
