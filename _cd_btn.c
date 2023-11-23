@@ -74,7 +74,7 @@ char *_change_dir(const char *path)
 			return (NULL);
 		}
 	}
-	else
+	else if (dir == NULL && (strcmp(path, "-") != 0))
 	{
 		if (chdir(path) != 0)
 		{
