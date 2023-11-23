@@ -29,6 +29,7 @@ void sig_handler(int signo);
 void free_str_safe(char **str);
 char **add_path(char **args, bool *changed);
 int run_builtin(const char *builtin, const char **args);
+char *_change_dir(const char *path);
 
 /* STRING HANDLERS */
 char *trim(char **str);
