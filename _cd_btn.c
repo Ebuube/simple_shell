@@ -25,7 +25,6 @@ pid_t _cd_btn(UNUSED const char **args)
 
 	if (i > MAX_ARGS)
 	{
-		fprintf(stderr, "cd: too many arguments\n");
 		return (SHELL.BUILTIN_FAILURE);
 	}
 	if (i == 1)
@@ -72,7 +71,6 @@ char *_change_dir(const char *path)
 	{
 		if (chdir(dir) != 0)
 		{
-			fprintf(stderr, "cd: Could not access directory\n");
 			return (NULL);
 		}
 	}
@@ -80,7 +78,6 @@ char *_change_dir(const char *path)
 	{
 		if (chdir(path) != 0)
 		{
-			fprintf(stderr, "cd: Could not access directory\n");
 			return (NULL);
 		}
 	}
