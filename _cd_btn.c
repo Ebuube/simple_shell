@@ -36,6 +36,8 @@ pid_t _cd_btn(UNUSED const char **args)
 	{
 		if (_change_dir(args[1]) == NULL)
 		{
+			fprintf(stderr, "%s: 1: cd: can\'t cd to %s\n",
+				ERR_PROMPT, args[1]);
 			return (SHELL.BUILTIN_FAILURE);
 		}
 	}
@@ -80,8 +82,6 @@ char *_change_dir(const char *path)
 	{
 		if (chdir(path) != 0)
 		{
-			fprintf(stderr, "%s: 1: cd: can\'t cd to %s\n",
-				ERR_PROMPT, path);
 			return (NULL);
 		}
 	}
