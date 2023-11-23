@@ -86,5 +86,8 @@ char *_change_dir(const char *path)
 	getcwd(wdir, 128);
 	setenv("PWD", wdir, 1);
 
+	if (strcmp(path, "-") == 0)
+		printf("%s\n", wdir);
+
 	return ((char *)path);
 }
