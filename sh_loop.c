@@ -18,7 +18,6 @@ pid_t sh_loop(void)
 		errno = 0;
 		if (SHELL.interactive)
 			printf(SHELL_PROMPT);
-
 		line = sh_readline();
 		if (line == NULL)
 		{
@@ -26,16 +25,14 @@ pid_t sh_loop(void)
 			errno = 0;
 			continue;
 		}
-		sep_cmds = tokenize(line, separator);	/* modification */
+		sep_cmds = tokenize(line, separator);
 		for (i = 0; sep_cmds[i]; i++)
-		{
-			printf("separate cmd: %s\n", sep_cmds[i]);	/* test */
+		{/* Enabling command separtor in shell ';' */
 			status = sh_run(sep_cmds[i]);
 			if (status == SHELL.FORK_EXEC_FAILURE ||
 				errno == SHELL.END_SHELL)
 				break;
 		}
-
 		fflush(STDIN_FILENO);
 		free_str_safe(&line);
 		free(sep_cmds);
@@ -49,7 +46,6 @@ pid_t sh_loop(void)
 			exit(SHELL.LAST_EXIT_STATUS);
 		}
 	}
-
 	return (status);
 }
 
