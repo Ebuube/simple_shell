@@ -7,8 +7,10 @@
  */
 pid_t sh_loop(void)
 {
-	char *line = NULL;
+	char *line = NULL, **sep_cmds = NULL;
 	pid_t status = 0;
+	int i = 0;
+	char *separator = ";";
 
 	while (1)
 	{
@@ -24,10 +26,19 @@ pid_t sh_loop(void)
 			errno = 0;
 			continue;
 		}
-		status = sh_run(line);
+		sep_cmds = tokenize(line, separator);	/* modification */
+		for (i = 0; sep_cmds[i]; i++)
+		{
+			printf("separate cmd: %s\n", sep_cmds[i]);	/* test */
+			status = sh_run(sep_cmds[i]);
+			if (status == SHELL.FORK_EXEC_FAILURE ||
+				errno == SHELL.END_SHELL)
+				break;
+		}
 
-		free_str_safe(&line);
 		fflush(STDIN_FILENO);
+		free_str_safe(&line);
+		free(sep_cmds);
 		if (status == SHELL.FORK_EXEC_FAILURE)
 		{/* child process could not execute the command */
 			printf("sh_loop: child process could not execute command\n");	/* test */
