@@ -17,7 +17,7 @@
 
 /* MACROS */
 #define BUFSIZE 81
-#define SHELL_PROMPT "$ "
+#define SHELL_PROMPT "ebube@~$ "
 #define UNUSED __attribute__((unused))
 
 /* FUNCTIONS */
