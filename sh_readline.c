@@ -21,6 +21,7 @@ char *sh_readline(void)
 		exit(EXIT_SUCCESS);
 	}
 
+	printf("sh_readline: raw line: '%s'\n", line);	/* test */
 	if ((size_t)nread < size - 1)
 	{
 		size = (line[nread - 1] == '\n') ? nread : nread + 1;
@@ -32,11 +33,13 @@ char *sh_readline(void)
 		line[size - 1] = '\0';
 	}
 
+	printf("sh_readline: null term line: '%s'\n", line);	/* test */
 	trim(&line);
 	if (line == NULL)
 	{
 		return (NULL);
 	}
+	printf("sh_readline: trimmed line: '%s'\n", line);	/* test */
 
 	return (line);
 }
