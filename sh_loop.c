@@ -21,12 +21,10 @@ pid_t sh_loop(void)
 		line = sh_readline();
 		if (line == NULL)
 		{
-			printf("sh_loop: Nothing read from line. Continue\n");	/* test */
 			fflush(STDIN_FILENO);
 			errno = 0;
 			continue;
 		}
-		printf("sh_loop: line -> '%s'\n", line);	/* test */
 		sep_cmds = tokenize(line, separator);
 		for (i = 0; sep_cmds[i]; i++)
 		{/* Enabling command separtor in shell ';' */
