@@ -51,13 +51,22 @@ Usage: `exit [status]`
 Quits shell with last exit status.
 * Implemented the `env` built-in, that prints the current environment.
 * Implemented the `setenv` and `unsetenv` builtin commands
-`setenv`
-<div style="margin-left: 8px;color=green">
-* Initialize a new environment variable, or modify an existing one
-* Syntax: `setenv VARIABLE VALUE`
-</div>
-
+`setenv`: Initialize a new environment variable, or modify an existing one. Syntax: `setenv VARIABLE VALUE`. Should print something on failure.
+`unsetenv`: Remove an environment variable. Syntax: `unsetenv VARIABLE`. Should print something on failure.
+* Implemented the `cd` builtin command. Changes the current directory of the process. Syntax: `cd [DIRECTORY]`. If no argument is given to the command, it takes the uesr to **HOME** directory. To change to the previous command `cd -`.
+* Multiple commands can be entered on the command line, separated by a semi-colon `;`. Eg.
+```
+($) ls /var; ls /hbtn ; ls /var
+``` 
+* Comments: Everything after a hash `#` is considered a comment and not part of the command to be executed. e.g
+```
+($) ls /var # I am a simple comment :)
+```
 
 
 ### Missing features
 * Ability to move cursor while in command line
+* Aliases
+* File input
+* Shell variables: E.g. `$?`, `$$`.
+* Logical operators: E.g. `&&`, `||`.
