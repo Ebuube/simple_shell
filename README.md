@@ -10,10 +10,8 @@ To compile this program using the gcc compiler, run this command
 `$ gcc -Wall -pedantic -Werror -Wextra -std=gnu89 *.c -o hsh`
 
 * **Using make**
-
+This feature enables easy compilation of the program. Simply run this command.
 `$ make`
-
-(assumption: the user is inside this repo)
 
 ## Usage
 ### Interactive
@@ -22,15 +20,47 @@ The interactive mode allows users to infinitely run Unix commands until a termin
 `$ ./hsh`
 
 ### Sample
-To run a program use the full path. Example, the `ls` command with the path `/usr/bin/ls`
+You can run a command with or without argumeents. Example, the `ls`
 
-`($) /usr/bin/ls`
+```
+($) ls /
+bin   etc   lib32   lost+found  myproject  root  snap  tmp      var
+boot  home  lib64   media       opt        run   srv   usr
+dev   lib   libx32  mnt         proc       sbin  sys   vagrant
 
-(assumption: the user is inside this repo)
+
+($) touch play_1 play_2 play_3
+($) ls
+play_1 play_2 play_3
+```
 
 ### Non-interacitive
 This simple unix command interpreter can equally be used non-interaactively by piping the output of a program into it. Example, to list all the files in the current working directory:
 
-`$ echo "/bin/ls" | ./hsh`
+`$ echo "ls" | ./hsh`
 
-(assumption: the user is inside this repo)
+
+### General features
+* Can handle command lines with arguments
+</br>
+* Handled the `PATH`
+</br>
+* Implemented the `exit` built-in, that exits the shell
+Usage: `exit [status]`
+```
+($) exit
+```
+Quits shell with last exit status.
+</br>
+* Implemented the `env` built-in, that prints the current environment.
+</br>
+* Implemented the `setenv` and `unsetenv` builtin commands
+`setenv`
+<div style="margin-left: 8px">	* Initialize a new environment variable, or modify an existing one
+	* Syntax: `setenv VARIABLE VALUE`
+</div>
+
+
+
+### Missing features
+* Ability to move cursor while in command line
