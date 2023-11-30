@@ -11,6 +11,7 @@ pid_t sh_loop(void)
 	pid_t status = 0;
 	int i = 0;
 	char *separator = ";";
+	char comment = '#';
 
 	while (1)
 	{
@@ -26,7 +27,7 @@ pid_t sh_loop(void)
 			continue;
 		}
 		sep_cmds = tokenize(line, separator);
-		for (i = 0; sep_cmds[i]; i++)
+		for (i = 0; sep_cmds[i] && (sep_cmds[i][0] != comment); i++)
 		{/* Enabling command separtor in shell ';' */
 			status = sh_run(sep_cmds[i]);
 			if (status == SHELL.FORK_EXEC_FAILURE ||
@@ -38,7 +39,6 @@ pid_t sh_loop(void)
 		free(sep_cmds);
 		if (status == SHELL.FORK_EXEC_FAILURE)
 		{/* child process could not execute the command */
-			printf("sh_loop: child process could not execute command\n");	/* test */
 			exit(EXIT_FAILURE);
 		}
 		if (errno == SHELL.END_SHELL)

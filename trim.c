@@ -11,9 +11,10 @@
  */
 char *trim(char **str)
 {
-	char *new = NULL, *string = NULL;
+	char *new = NULL, *string = NULL, comment = '#';
 	const char DELIM = ' ';
 	unsigned int size = 0, start = 0, end = 0;
+	int comment_start = 0;
 
 	if (str == NULL || *str == NULL || strlen(*str) == 0)
 	{
@@ -26,6 +27,10 @@ char *trim(char **str)
 	for (end = strlen(string); end > 0 && string[end - 1] == DELIM; end--)
 		;
 
+	comment_start = find_chr(string, comment);
+	printf("trim: comment starts at index %d\n", comment_start);	/* test */
+	end = (comment_start > 0) ? (unsigned int)comment_start - 1 : end; 
+	printf("trim: end = %d\n", end);	/* test */
 	size = (end == 0) ? 0 : end - start;
 	if (size == 0)
 	{
@@ -47,4 +52,34 @@ char *trim(char **str)
 	*str = string;
 
 	return (*str);
+}
+
+/**
+ * find_chr - returns the index of the first occurrence of a character
+ * in a string
+ * @str: string to searchh
+ * @c: character to match
+ * Description: index starts from 0
+ *
+ * Return: index of character else -1 if not found
+ * else -2 on error
+ */
+int find_chr(const char *str, const char c)
+{
+	char *index = NULL;
+	int pos = 0;
+
+	if (str == NULL)
+	{
+		return (-2);
+	}
+
+	index = strchr(str, c);
+	if (index == NULL)
+	{/* not found */
+		return (-1);
+	}
+	pos = (int)(index - str);
+
+	return (pos);
 }
