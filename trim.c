@@ -13,32 +13,28 @@ char *trim(char **str)
 {
 	char *new = NULL, *string = NULL, comment = '#';
 	const char DELIM = ' ';
-	unsigned int size = 0, start = 0, end = 0;
-	int comment_start = 0;
+	unsigned int start = 0, end = 0;
+	int size = 0, comment_start = 0;
 
 	if (str == NULL || *str == NULL || strlen(*str) == 0)
 	{
 		return (NULL);
 	}
 	string = *str;
-
 	for (start = 0; string[start] && string[start] == DELIM; start++)
 		;
 	for (end = strlen(string); end > 0 && string[end - 1] == DELIM; end--)
 		;
-
 	comment_start = find_chr(string, comment);
-	printf("trim: comment starts at index %d\n", comment_start);	/* test */
-	end = (comment_start > 0) ? (unsigned int)comment_start - 1 : end; 
-	printf("trim: end = %d\n", end);	/* test */
+	end = (comment_start > 0) ? (unsigned int)comment_start - 1 : end;
+	end = (comment_start == 0) ? 0 : end;
 	size = (end == 0) ? 0 : end - start;
-	if (size == 0)
+	if (size <= 0)
 	{
 		free_str_safe(&*str);
 		*str = NULL;
 		return (NULL);
 	}
-
 	new = malloc((size + 1) * sizeof(char));
 	if (new ==  NULL)
 	{
@@ -46,7 +42,6 @@ char *trim(char **str)
 	}
 	new = strncpy(new, string + start, size);
 	new[size] = '\0';
-
 	free_str_safe(&string);
 	string = new;
 	*str = string;
