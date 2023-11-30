@@ -42,22 +42,19 @@ This simple unix command interpreter can equally be used non-interaactively by p
 
 ### General features
 * Can handle command lines with arguments
-</br>
 * Handled the `PATH`
-</br>
 * Implemented the `exit` built-in, that exits the shell
 Usage: `exit [status]`
 ```
 ($) exit
 ```
 Quits shell with last exit status.
-</br>
 * Implemented the `env` built-in, that prints the current environment.
-</br>
 * Implemented the `setenv` and `unsetenv` builtin commands
 `setenv`
-<div style="margin-left: 8px">	* Initialize a new environment variable, or modify an existing one
-	* Syntax: `setenv VARIABLE VALUE`
+<div style="margin-left: 8px;color=green">
+* Initialize a new environment variable, or modify an existing one
+* Syntax: `setenv VARIABLE VALUE`
 </div>
 
 
