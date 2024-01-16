@@ -1,3 +1,5 @@
+[![Generic badge](https://img.shields.io/badge/Made-with-Cgreen.svg)](https://en.wikipedia.org/wiki/C_(programming_language)) [![Generic badge](https://img.shields.io/badge/Memory-leak-free-blue.svg)](https://valgrind.org/) [![Generic badge](https://img.shields.io/badge/Made-with-threads-orange.svg)](https://www.geeksforgeeks.org/multithreading-in-c/)
+
 # Simple Unix Command Interpreter
 
 This program emulates a Unix shell and allows users to run linux commands directly in it.
