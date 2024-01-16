@@ -1,4 +1,4 @@
-[![Generic badge](https://img.shields.io/badge/Made%20with%20C-green.svg)](https://en.wikipedia.org/wiki/C_(programming_language)) [![Generic badge](https://img.shields.io/badge/Memory%20leak%20free-blue.svg)](https://valgrind.org/) [![Generic badge](https://img.shields.io/badge/Made%20with%20threads-orange.svg)](https://www.bing.com/ck/a?!&&p=75b91a398f84367cJmltdHM9MTcwNTM2MzIwMCZpZ3VpZD0xOWRkZDk3My03N2Y4LTZiZGUtMzkyZS1jYTEyNzZlNTZhN2UmaW5zaWQ9NTIwMw&ptn=3&ver=2&hsh=3&fclid=19ddd973-77f8-6bde-392e-ca1276e56a7e&psq=threading+in+C+-+wikipedia&u=a1aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvVGhyZWFkXyhjb21wdXRpbmcp&ntb=1)
+[![Generic badge](https://img.shields.io/badge/Made%20with%20C-green.svg)](https://en.wikipedia.org/wiki/C_(programming_language)) [![Generic badge](https://img.shields.io/badge/Memory%20leak%20free-blue.svg)](https://valgrind.org/) [![Generic badge](https://img.shields.io/badge/Made%20with%20threads-orange.svg)](https://en.wikipedia.org/wiki/Thread_(computing))
 
 # Simple Unix Command Interpreter
 
