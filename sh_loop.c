@@ -3,7 +3,7 @@
 /**
  * sh_loop - loops through to emulate a UNIX Commandline Interpreter
  *
- * Return: nothing
+ * Return: exit status code of the last shell command
  */
 pid_t sh_loop(void)
 {
