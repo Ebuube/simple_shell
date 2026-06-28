@@ -1,5 +1,5 @@
 # Shell should read commands from a file
-# Eg. ./hsh filename
+# Eg. ./hsh < filename
 pwd
 ls
 
